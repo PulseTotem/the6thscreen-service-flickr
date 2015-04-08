@@ -55,6 +55,9 @@ class FlickrNamespaceManager extends SourceNamespaceManager {
 				for (var photo in listPhotos) {
 					var pic : Picture = new Picture();
 
+
+
+					pictureAlbum.addPicture(pic);
 				}
 
 				Logger.debug("Send PictureAlbum to client : ");
