@@ -37,9 +37,6 @@ class FlickrNamespaceManager extends SourceNamespaceManager {
 			self = this;
 		}
 
-		Logger.debug("LastPicturesFromSearch Action with params :");
-		Logger.debug(params);
-
 		var fail = function(error) {
 			if(error) {
 				Logger.error(error);
@@ -48,8 +45,6 @@ class FlickrNamespaceManager extends SourceNamespaceManager {
 
 		var success = function(oauthActions) {
 			var successSearch = function (information) {
-				console.log("Obtained informations : ");
-				console.log(JSON.stringify(information));
 
 				var pictureAlbum : PictureAlbum = new PictureAlbum();
 				var result = information.photos;
@@ -57,11 +52,12 @@ class FlickrNamespaceManager extends SourceNamespaceManager {
 
 				pictureAlbum.setId(uuid.v1());
 				pictureAlbum.setPriority(0);
+				pictureAlbum.setDurationToDisplay(parseInt(params.InfoDuration) * listPhotos.length);
 
 				for (var i = 0; i < listPhotos.length; i++) {
 					var photo = listPhotos[i];
 
-					var pic : Picture = new Picture(photo.id, 0, new Date(photo.dateupload), null, 10000);
+					var pic : Picture = new Picture(photo.id, 0, new Date(photo.dateupload), null, parseInt(params.InfoDuration));
 					pic.setDescription(photo.description._content);
 					pic.setTitle(photo.title);
 
